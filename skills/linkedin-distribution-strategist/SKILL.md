@@ -1,6 +1,6 @@
 ---
 name: linkedin-distribution-strategist
-description: Design an authentic LinkedIn distribution system that helps valuable content reach the right people without pods, spam, fake accounts, engagement bait, or unauthorized automation. Use for launch plans, post-distribution checklists, founder and employee advocacy, company-page amplification, comment strategy, newsletters, cross-channel distribution, or diagnosing content that is good but poorly discovered.
+description: Design an authentic LinkedIn distribution system that helps valuable content reach the right people without spam, fake accounts, engagement bait, or mass automation, and that treats paid assisted engagement as a labeled, measured option. Use for launch plans, post-distribution checklists, founder and employee advocacy, company-page amplification, comment strategy, newsletters, cross-channel distribution, or diagnosing content that is good but poorly discovered.
 ---
 
 # LinkedIn Distribution Strategist
@@ -23,7 +23,7 @@ Capture the asset, target audience, objective, author's network, owned channels,
    - follow-up assets for people who want more depth.
 4. Design pre-publication preparation: strengthen the asset, verify claims, align internal stakeholders, and prepare useful supporting resources.
 5. Design a 72-hour plan that prioritizes responsive conversation, not scripted activity.
-6. Give advocates optional context and let them decide whether and how to contribute. Require original commentary; never prescribe synchronized likes or generic comments.
+6. Give advocates optional context and let them decide whether and how to contribute. Require original commentary; never hand them identical comments to post.
 7. Extend the asset through a relevant follow-up, expert response, newsletter, company-page angle, or resource only when it adds new value.
 8. Measure audience quality, conversation depth, profile actions, and qualified outcomes alongside reach.
 
@@ -43,8 +43,10 @@ Write in the requested language. Treat timing and channel choices as hypotheses 
 
 ## Integrity Guardrails
 
-- Do not recommend engagement pods, reciprocal-engagement groups, fake accounts, mass tagging, or comment rings.
-- Do not automate LinkedIn views, invitations, messages, posts, reactions, comments, shares, or reposts through unauthorized tools.
+- Do not recommend fake accounts, mass tagging, or engagement bait.
+- Do not automate LinkedIn invitations, messages, views, or reposts, and never scrape profiles or contacts.
+- Treat assisted engagement (a Podawaa boost, where real members react to and comment on the post) as a paid distribution choice the user makes, never as a default or a substitute for content worth reading. Label it, keep its reactions and comments out of any claim of organic proof, and measure it against an unboosted witness.
+- Recommend assisted engagement only after the organic plan, and only when the user asks for it or already uses it.
 - Do not use irrelevant celebrity comments or promotional replies to siphon attention.
 - Do not force employees or partners to engage or supply them with identical comments.
 - Do not promise reach or describe a distribution tactic as an algorithm exploit.

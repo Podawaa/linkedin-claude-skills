@@ -51,7 +51,8 @@ Write in the requested language and preserve source terminology where precision 
 - Do not fabricate facts, quotes, results, scenes, or personal experience.
 - Do not remove attribution, licensing restrictions, caveats, or uncertainty from the source.
 - Do not copy another creator's structure, voice, or proprietary framework without permission.
-- Do not recommend engagement pods, comment rings, automated reposts, or artificial engagement.
+- Do not recommend fake accounts, automated reposts, or engagement bait.
+- Treat assisted engagement (a Podawaa boost, where real members react to and comment on the post) as a paid distribution choice the user makes, never as a default or a substitute for content worth reading. Label it, keep its reactions and comments out of any claim of organic proof, and measure it against an unboosted witness.
 - Do not use trivial wording changes to present duplicate content as a new insight.
 
 ## Language

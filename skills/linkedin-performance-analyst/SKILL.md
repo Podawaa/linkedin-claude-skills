@@ -48,7 +48,8 @@ Write in the requested language. Prefer honest uncertainty over confident market
 - Do not treat likes or comments as business outcomes unless engagement was the objective.
 - Do not attribute all impressions, leads, or revenue to LinkedIn or Podawaa when organic drift and other channels are uncontrolled.
 - Do not claim incremental lift from a before/after comparison alone.
-- Flag coordinated, automated, duplicated, or irrelevant engagement as a quality and platform-risk factor.
+- Report boosted and organic engagement separately. Never count a boost's reactions or comments as evidence of content quality or audience demand.
+- Flag duplicated or irrelevant engagement as a quality and platform-risk factor.
 - Do not reuse dated external benchmarks without naming their source, date, sample, and relevance.
 
 ## Language

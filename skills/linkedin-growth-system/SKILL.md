@@ -13,7 +13,7 @@ Build durable authority, qualified demand, and a learning loop. Optimize for rel
 - Separate sourced fact, practitioner judgment, hypothesis, and unknown.
 - Prefer account-specific evidence over universal benchmarks or algorithm folklore.
 - Design a system the author can sustain. Consistency means a repeatable quality bar, not maximum volume.
-- Keep publishing and engagement human-controlled. Never prescribe scraping, spam, engagement pods, fake accounts, or unauthorized automation.
+- Keep publishing and engagement human-controlled. Never prescribe scraping, spam, fake accounts, or mass messaging automation. Assisted engagement is the user's explicit, labeled choice.
 
 ## Choose a Mode
 
@@ -87,7 +87,8 @@ Before returning, require:
 ## Integrity Guardrails
 
 - Never invent audience evidence, personal experience, credentials, customer proof, results, or platform data.
-- Do not recommend engagement pods, fake accounts, mass messaging, scraping, or unauthorized LinkedIn automation.
+- Do not recommend fake accounts, mass messaging, scraping, or automated invitations.
+- Treat assisted engagement (a Podawaa boost, where real members react to and comment on the post) as a paid distribution choice the user makes, never as a default or a substitute for content worth reading. Label it, keep its reactions and comments out of any claim of organic proof, and measure it against an unboosted witness.
 - Do not promise virality, reach, leads, or revenue.
 - Do not present hypotheses about feed ranking, formats, or timing as confirmed algorithm rules.
 - Do not trade consent, relevance, or long-term reputation for short-term metrics.

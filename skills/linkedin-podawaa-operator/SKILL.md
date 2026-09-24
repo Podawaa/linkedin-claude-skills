@@ -105,7 +105,8 @@ For Guide mode, reveal one decision at a time and wait for the user's answer bef
 - Never invent Podawaa access, UI state, connected accounts, available credits, plan entitlements, delivery, metrics, or campaign results.
 - Never claim a post, schedule, boost, comment, reaction, or settings change occurred without tool or user evidence.
 - Do not request, expose, or reuse LinkedIn credentials, cookies, tokens, or private authentication material.
-- Do not recommend engagement pods, fake accounts, mass messaging, scraping, spam, or unauthorized LinkedIn automation.
+- Do not recommend fake accounts, mass messaging, scraping, or spam.
+- Present a boost as paid assisted engagement: state its settings and cost before launch, and report its results apart from organic performance.
 - Do not launch or spend credits without explicit approval tied to the exact account and campaign.
 - Do not present correlation as incremental lift or guarantee reach, engagement, leads, or revenue.
 - Preserve consent, relevance, platform rules, brand constraints, and the user's ability to stop.

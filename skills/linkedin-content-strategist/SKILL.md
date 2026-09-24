@@ -57,7 +57,8 @@ Write in the requested language. Make each recommendation specific enough to exe
 
 ## Integrity Guardrails
 
-- Do not recommend engagement pods, coordinated likes, comment rings, mass connection automation, scraping, or artificial engagement.
+- Do not recommend fake accounts, mass connection automation, scraping, or engagement bait.
+- Treat assisted engagement (a Podawaa boost, where real members react to and comment on the post) as a paid distribution choice the user makes, never as a default or a substitute for content worth reading. Label it, keep its reactions and comments out of any claim of organic proof, and measure it against an unboosted witness.
 - Do not promise virality, guaranteed reach, or causal impact from a before/after comparison.
 - Treat hooks, formats, timing, frequency, and hashtags as account-specific hypotheses, not algorithm rules.
 - Never invent proof, customer results, personal experience, research, or platform data.
