@@ -1,0 +1,10 @@
+{
+  "name": "podawaa-linkedin",
+  "version": "1.0.0",
+  "description": "Ten LinkedIn strategy skills (research, positioning, writing, distribution, conversion, measurement) and a skill that publishes and schedules posts through the Podawaa API.",
+  "author": { "name": "Podawaa", "url": "https://podawaa.com" },
+  "homepage": "https://github.com/Podawaa/linkedin-claude-skills",
+  "repository": "https://github.com/Podawaa/linkedin-claude-skills",
+  "license": "MIT",
+  "keywords": ["linkedin", "content-strategy", "copywriting", "social-media", "skills"]
+}

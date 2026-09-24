@@ -1,0 +1,14 @@
+{
+  "name": "podawaa",
+  "owner": { "name": "Podawaa" },
+  "metadata": { "description": "Podawaa skills for Claude Code.", "version": "1.0.0" },
+  "plugins": [
+    {
+      "name": "podawaa-linkedin",
+      "description": "Ten LinkedIn strategy skills and a Podawaa publishing skill.",
+      "version": "1.0.0",
+      "author": { "name": "Podawaa" },
+      "source": "./"
+    }
+  ]
+}
