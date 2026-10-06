@@ -1,8 +1,12 @@
 # LinkedIn skills for Claude Code
 
-Eleven [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) for planning, writing, distributing and measuring LinkedIn content.
+Fifteen [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) for planning, writing, distributing and measuring LinkedIn content, and for prospecting without automating LinkedIn.
 
-Ten of them are pure method: they need no account, no API key and no network access. They work on the evidence you give them (interview notes, drafts, post metrics) and refuse to invent proof, quotes or results. The eleventh, `podawaa`, publishes and schedules posts through the [Podawaa](https://podawaa.com) API and requires a paid Podawaa plan.
+Ten of them are pure method: they need no account, no API key and no network access. They work on the evidence you give them (interview notes, drafts, post metrics) and refuse to invent proof, quotes or results.
+
+Four prospecting skills read LinkedIn through a browser tool such as Claude in Chrome when one is available, or work from text you paste. They are read-only by design: they never send an invitation, a message or a comment, because LinkedIn prohibits browser extensions that automate activity. They prepare the work; you click.
+
+The last one, `podawaa`, publishes and schedules posts through the [Podawaa](https://podawaa.com) API and requires a paid Podawaa plan.
 
 ## Install
 
@@ -34,6 +38,10 @@ cp -r linkedin-claude-skills/skills/* ~/.claude/skills/
 | `linkedin-conversion-architect` | CTA ladder, profile-to-offer journey, qualification rules and an attribution plan with explicit blind spots. |
 | `linkedin-performance-analyst` | Compares posts against a same-account baseline, separates measured from inferred, and states what the data does not prove. |
 | `linkedin-podawaa-operator` | Turns an approved plan into a reviewable Podawaa execution brief and hands it to the `podawaa` skill. |
+| `linkedin-prospect-signals` | Finds prospects by recent activity the search filters cannot express (substantive comments, company reshares, competitor engagement) and returns a short reasoned list. |
+| `linkedin-followup-tracker` | Builds a follow-up queue from recent connections and conversations (new, day 7, 14, 60) with the last-exchange context and a draft for each. |
+| `linkedin-acceptance-rate` | Rebuilds the invitation acceptance rate over a window, splits it by segment and note, and names the likely bottleneck. |
+| `linkedin-comment-targets` | Picks a few posts your prospects are already reading where you have something specific to add, with an angle for each. You write the comment. |
 | `podawaa` | Lists LinkedIn channels, publishes or schedules posts (first comment, PDF carousel) and polls their status through the Podawaa REST API. Needs `PODAWAA_API_KEY` and a Private Accelerate or Dominate plan. |
 
 Every skill answers in the language you write to it.
@@ -44,6 +52,7 @@ Every skill answers in the language you write to it.
 /linkedin-post-writer Turn these notes into a post: ...
 /linkedin-performance-analyst Here are my last 12 posts with impressions and replies. What should I repeat?
 /linkedin-growth-system Build a 30-day plan. I sell compliance audits to mid-size fintechs.
+/linkedin-prospect-signals Find 20 heads of finance who commented on posts about month-end close in the last 90 days.
 ```
 
 ## License
