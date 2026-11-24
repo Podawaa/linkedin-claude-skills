@@ -3,14 +3,17 @@ name: podawaa
 description: |
   Use the Podawaa Public API to publish LinkedIn posts on behalf of the user,
   with optional first comment, lead magnet comments, PDF carousel, and scheduled
-  publishing. Private Accelerate+ API.
+  publishing, and to boost a post the user already published on LinkedIn.
+  Private Accelerate+ API.
   TRIGGER when: the user asks to "post on LinkedIn", "schedule a LinkedIn post",
-  "publish a LinkedIn post via Podawaa", or to "draft and schedule" content.
+  "publish a LinkedIn post via Podawaa", to "draft and schedule" content, or to
+  "boost my LinkedIn post" / "get engagement on this post" with Podawaa.
 ---
 
 # Podawaa Public API
 
-You can publish LinkedIn posts through a user's Podawaa account via the REST API.
+You can publish LinkedIn posts through a user's Podawaa account via the REST API,
+and boost posts the user already published on LinkedIn.
 
 ## Authentication
 
@@ -114,12 +117,16 @@ curl -s -X POST https://api-podawaa.com/api/v1/posts \
   specific time.
 - `boost` (optional) - engagement configuration fired server-side once the
   post is live. Fields:
-  - `boostLevel`: `1`, `2`, or `3`. Required if `boost` is provided.
+  - `boostLevel`: `1`, `2`, or `3`. Defaults to `2` when omitted.
   - `targetReactions`: 1 to 250.
   - `targetComments`: 0 to 50. Comments are AI-generated
     server-side based on the post content.
-  - `audienceCategories`: optional array of category IDs (`XX-YY`). If omitted,
-    the audience is selected by AI.
+  - `audienceCategories`: optional array of up to 20 category IDs (`XX-YY`). If
+    omitted, the audience is selected by AI.
+  - `superFastMode` / `slowMode`: optional booleans controlling delivery pace.
+    Leave both unset unless the user asks for a faster or slower boost.
+  - The comment language is not a request field: it comes from the channel's
+    first engagement language set in the dashboard.
 - `X-Idempotency-Key` (recommended header) - any UUID. Same key + same body
   within 24 h replays the original response. Same key + different body returns
   `409 IDEMPOTENCY_KEY_REUSED` (Stripe-style contract).
@@ -252,6 +259,94 @@ passed through verbatim — treat it as `PUBLISH_FAILED` and surface the raw
 string to the user. Do not assume a specific code (e.g. there is no
 `LINKEDIN_RATE_LIMITED` enum today; you'd see the raw LinkedIn HTTP error).
 
+## Boost a post already published on LinkedIn
+
+Use `POST /boosts` when the post is already live on LinkedIn (published by hand,
+by another tool, or earlier through Podawaa). To publish *and* boost in one go,
+use the `boost` block of `POST /posts` instead.
+
+A boost spends the user's engagement quota. Confirm the post and the boost
+settings with the user before calling, and never boost a post they did not ask
+you to boost.
+
+```bash
+curl -s -X POST https://api-podawaa.com/api/v1/boosts \
+  -H "Authorization: Bearer $PODAWAA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "X-Idempotency-Key: $(uuidgen)" \
+  -d '{
+    "channelId": "550e8400-...",
+    "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7300000000000000000/",
+    "boost": {
+      "boostLevel": 2,
+      "targetReactions": 50,
+      "targetComments": 10
+    }
+  }'
+```
+
+### Field rules
+
+- `channelId` (required) - the channel that **published** the post. The API
+  only boosts the channel's own posts: a post by someone else returns
+  `403 POST_NOT_OWNED_BY_CHANNEL`.
+- Exactly one of:
+  - `postUrl` - a LinkedIn post URL (`/posts/...` or `/feed/update/...`). The
+    post must be public and still online.
+  - `postUrn` - `urn:li:activity:<id>`, `urn:li:ugcPost:<id>` or
+    `urn:li:share:<id>`, e.g. the URN another tool returned at publish time.
+- `boost` (optional) - same fields and limits as the `boost` block of
+  `POST /posts`: `boostLevel` 1-3 (default 2), `targetReactions` 1-250,
+  `targetComments` 0-50, `audienceCategories`, `superFastMode` / `slowMode`.
+  The comment language comes from the channel's first engagement language, not
+  from the request.
+- The post must be **about 30 days old or less** (the same window as the
+  dashboard). LinkedIn has stopped distributing older posts, so the API
+  refuses them.
+- One boost per post through the API. Always send `X-Idempotency-Key` so a
+  retry after a network error replays the original response instead of
+  failing with `POST_ALREADY_BOOSTED`.
+
+### Successful response (201)
+
+```json
+{
+  "id": "7c9e6679-...",
+  "postId": "a3bb189e-...",
+  "channelId": "550e8400-...",
+  "status": "PENDING",
+  "moderationReason": null,
+  "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7300000000000000000/",
+  "boost": {
+    "boostLevel": 2,
+    "targetReactions": 50,
+    "targetComments": 10
+  },
+  "createdAt": "2026-11-24T12:00:00Z"
+}
+```
+
+If `status` is `BANNED`, content moderation refused the post and the boost will
+not run: show the user `moderationReason` and do not retry.
+
+### Errors you should handle
+
+| Status | Code | Action |
+|---|---|---|
+| 400 | `POST_REFERENCE_REQUIRED` | Send exactly one of `postUrl` or `postUrn`. |
+| 400 | `INVALID_POST_URL` / `INVALID_POST_URN` | Ask the user for the post's LinkedIn URL. |
+| 400 | `POST_NOT_BOOSTABLE` | The URL is a LinkedIn article (Pulse) or a group post, which cannot be boosted. Show the message. |
+| 400 | `POST_NOT_FOUND` | The post could not be read: it is private, deleted, or the URL is wrong. |
+| 400 | `POST_TOO_OLD` | The post is older than 30 days. It cannot be boosted; do not retry. |
+| 400 | `INVALID_BOOST_LEVEL` / `INVALID_TARGET_REACTIONS` / `INVALID_TARGET_COMMENTS` / `INVALID_AUDIENCE_CATEGORIES` | Fix the `boost` block and retry once. |
+| 403 | `POST_NOT_OWNED_BY_CHANNEL` | The post was published by another account. Use the channel that published it. |
+| 403 / 404 | `CHANNEL_NOT_OWNED` / `CHANNEL_NOT_FOUND` | Re-fetch `/channels`. |
+| 409 | `POST_ALREADY_BOOSTED` | The post already has a boost. Report it to the user; a second boost is a dashboard action. |
+| 409 | `POST_ENGAGEMENT_ALREADY_CLAIMED` / `AUTOPILOT_MUST_BE_DISABLED` | The post is already being boosted, or Growth Autopilot must be turned off first. Show the message. |
+| 402 | `AUTOPILOT_QUOTA_REACHED` | The monthly boost allowance is used up. Stop and tell the user. |
+| 409 | `IDEMPOTENCY_KEY_REUSED` | Same key, different body. Generate a fresh UUID. |
+| 429 | `RATE_LIMIT_EXCEEDED` | Honour `retryAfterSeconds`. Do NOT spin. |
+
 ## Identity
 
 ```bash
@@ -272,9 +367,9 @@ Returns the plan key and your current rate limits.
 
 ## Out of scope for v1
 
-There is **no** standalone boost / engagement endpoint, **no** webhook,
-**no** delete-post, **no** comments fetch. Do not invent endpoints. If the user
-asks for those, say they are dashboard-only for now.
+There is **no** webhook, **no** delete-post, **no** comments fetch, and **no**
+endpoint to read a boost's progress or cancel it. Do not invent endpoints. If
+the user asks for those, say they are dashboard-only for now.
 
 ## Workflow you should follow
 
@@ -287,6 +382,10 @@ asks for those, say they are dashboard-only for now.
 5. POST `/posts`, surface the returned `id` and `status` to the user.
 6. If they ask "is my post out?", poll `/posts/:id` — no faster than once every
    30 s, give up after 5 attempts.
+7. To boost a post that is already live, confirm the post and the boost
+   settings with the user, then POST `/boosts` with a fresh
+   `X-Idempotency-Key`. Report the returned `status`; follow the boost's
+   progress in the dashboard.
 
 ## Example prompts the user might give you
 
@@ -299,8 +398,11 @@ asks for those, say they are dashboard-only for now.
   tomorrow morning."
 - "Push my last 3 GitHub releases to LinkedIn — one per day at 10am."
 - "Draft a 'we are hiring' post for my Acme channel and schedule it for Tuesday."
+- "Boost the post I published this morning: 80 reactions and 10 comments."
 
 In every case: list channels, draft content under 3 000 chars, pick a valid
 `scheduledAt`, call `POST /posts`, report the returned `id` and status. Never
 fabricate `channelId` or pretend a post is published when the API returned
-`status: draft`.
+`status: draft`. For a boost, call `POST /boosts` only once the user has
+confirmed the post and the settings, and never claim reactions or comments
+were delivered: the API only tells you the boost was accepted.
