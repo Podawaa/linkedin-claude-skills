@@ -6,7 +6,7 @@ Ten of them are pure method: they need no account, no API key and no network acc
 
 Four prospecting skills read LinkedIn through a browser tool such as Claude in Chrome when one is available, or work from text you paste. They are read-only by design: they never send an invitation, a message or a comment, because LinkedIn prohibits browser extensions that automate activity. They prepare the work; you click.
 
-The last one, `podawaa`, publishes and schedules posts through the [Podawaa](https://podawaa.com) API and requires a paid Podawaa plan.
+The last one, `podawaa`, publishes, schedules and boosts posts through the [Podawaa](https://podawaa.com) API and requires a paid Podawaa plan.
 
 ## Install
 
@@ -42,7 +42,7 @@ cp -r linkedin-claude-skills/skills/* ~/.claude/skills/
 | `linkedin-followup-tracker` | Builds a follow-up queue from recent connections and conversations (new, day 7, 14, 60) with the last-exchange context and a draft for each. |
 | `linkedin-acceptance-rate` | Rebuilds the invitation acceptance rate over a window, splits it by segment and note, and names the likely bottleneck. |
 | `linkedin-comment-targets` | Picks a few posts your prospects are already reading where you have something specific to add, with an angle for each. You write the comment. |
-| `podawaa` | Lists LinkedIn channels, publishes or schedules posts (first comment, PDF carousel) and polls their status through the Podawaa REST API. Needs `PODAWAA_API_KEY` and a Private Accelerate or Dominate plan. |
+| `podawaa` | Lists LinkedIn channels, publishes or schedules posts (first comment, PDF carousel), boosts posts already live on LinkedIn, and polls post status through the Podawaa REST API. Needs `PODAWAA_API_KEY` and a Private Accelerate or Dominate plan. |
 
 Every skill answers in the language you write to it.
 
